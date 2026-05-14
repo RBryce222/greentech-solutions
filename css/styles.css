@@ -175,6 +175,14 @@ body {
     margin-bottom: 1rem;
 }
 
+.filter-btn.active {
+    background-color: var(--forest);
+}
+
+.hidden {
+    display: none !important;
+}
+
 /* ===== NEWSLETTER ===== */
 .newsletter {
     padding: 4rem 0;
