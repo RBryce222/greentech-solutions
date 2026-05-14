@@ -574,6 +574,15 @@ button:focus {
     object-fit: cover;
 }
 
+.blog-image {
+    display: block;
+    margin: 2rem auto;
+    max-width: 300px;
+    width: 80%;
+    height: auto;
+    border-radius: 10px;
+}
+
 /* ===== FOOTER ===== */
 footer {
     background-color: var(--forest);
