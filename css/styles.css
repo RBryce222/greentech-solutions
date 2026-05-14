@@ -243,13 +243,15 @@ body {
 
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, 320px);
     gap: 2rem;
     justify-content: center;
+    align-items: start;
 }
 
 .product-card {
     background-color: white;
+    width: 320px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
