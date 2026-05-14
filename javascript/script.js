@@ -1,112 +1,138 @@
-/* NEWSLETTER */
+/* =========================
+   NEWSLETTER FORM
+========================= */
 
 const form = document.getElementById("newsletter-form");
-const message = document.getElementById("form-message");
+const formMessage = document.getElementById("form-message");
 
-form.addEventListener("submit", function(event) {
+if (form) {
 
-    event.preventDefault();
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
 
-    const email = document.getElementById("email").value;
+        const email = document.getElementById("email").value;
 
-    if(email === "") {
-        message.textContent = "Please enter an email address.";
-        return;
-    }
+        if (email === "") {
+            formMessage.textContent = "Please enter an email address.";
+            return;
+        }
 
-    message.textContent =
-        "Thank you for subscribing to GreenTech updates!";
-});
+        formMessage.textContent =
+            "Thank you for subscribing to GreenTech updates!";
+    });
+}
+
+
+/* =========================
+   PRODUCTS PAGE FILTERING
+========================= */
 
 const searchBar = document.getElementById("searchBar");
+const productCards = document.querySelectorAll(".product-card");
+const filterButtons = document.querySelectorAll(".filter-btn");
 
-const productCards =
-    document.querySelectorAll(".product-card");
+if (searchBar) {
 
-const filterButtons =
-    document.querySelectorAll(".filter-btn");
+    searchBar.addEventListener("keyup", function () {
 
-/* SEARCH FILTER */
-
-searchBar.addEventListener("keyup", function() {
-
-    const searchValue =
-        searchBar.value.toLowerCase();
-
-    productCards.forEach(card => {
-
-        const productName =
-            card.querySelector("h3")
-                .textContent
-                .toLowerCase();
-
-        if(productName.includes(searchValue)) {
-            card.style.display = "block";
-        }
-        else {
-            card.style.display = "none";
-        }
-    });
-});
-
-/* CATEGORY FILTER */
-
-filterButtons.forEach(button => {
-
-    button.addEventListener("click", function() {
-
-        const category =
-            button.dataset.category;
+        const searchValue = searchBar.value.toLowerCase();
 
         productCards.forEach(card => {
 
-            if(category === "all") {
-                card.style.display = "block";
-            }
-            else if(card.dataset.category === category) {
-                card.style.display = "block";
-            }
-            else {
-                card.style.display = "none";
+            const productName =
+                card.querySelector("h3").textContent.toLowerCase();
+
+            const matchesSearch =
+                productName.includes(searchValue);
+
+            const isHiddenByCategory =
+                card.classList.contains("hidden-by-category");
+
+            if (matchesSearch && !isHiddenByCategory) {
+                card.classList.remove("hidden");
+            } else {
+                card.classList.add("hidden");
             }
         });
     });
-});
+}
 
-/* CONTACT */
-const contactForm =
-    document.getElementById("contactForm");
 
-const contactMessage =
-    document.getElementById("contactMessage");
+if (filterButtons.length > 0) {
 
-contactForm.addEventListener("submit", function(event) {
+    filterButtons.forEach(button => {
 
-    event.preventDefault();
+        button.addEventListener("click", function () {
 
-    const name =
-        document.getElementById("name").value.trim();
+            const category = button.dataset.category;
 
-    const email =
-        document.getElementById("contactEmail")
-            .value
-            .trim();
+            productCards.forEach(card => {
 
-    const message =
-        document.getElementById("message")
-            .value
-            .trim();
+                const matchesCategory =
+                    category === "all" ||
+                    card.dataset.category === category;
 
-    if(name === "" || email === "" || message === "") {
+                if (matchesCategory) {
+
+                    card.classList.remove("hidden-by-category");
+
+                    // re-check search filter
+                    const searchValue =
+                        searchBar ? searchBar.value.toLowerCase() : "";
+
+                    const productName =
+                        card.querySelector("h3").textContent.toLowerCase();
+
+                    const matchesSearch =
+                        productName.includes(searchValue);
+
+                    if (matchesSearch) {
+                        card.classList.remove("hidden");
+                    }
+
+                } else {
+
+                    card.classList.add("hidden-by-category");
+                    card.classList.add("hidden");
+                }
+            });
+        });
+    });
+}
+
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+const contactForm = document.getElementById("contactForm");
+const contactMessage = document.getElementById("contactMessage");
+
+if (contactForm) {
+
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const email =
+            document.getElementById("contactEmail").value.trim();
+
+        const message =
+            document.getElementById("message").value.trim();
+
+        if (name === "" || email === "" || message === "") {
+
+            contactMessage.textContent =
+                "Please complete all fields.";
+
+            return;
+        }
 
         contactMessage.textContent =
-            "Please complete all fields.";
+            "Thank you! Your message has been sent.";
 
-        return;
-    }
-
-    contactMessage.textContent =
-        "Thank you! Your message has been sent.";
-
-    contactForm.reset();
-});
+        contactForm.reset();
+    });
+}
