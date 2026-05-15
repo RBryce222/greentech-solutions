@@ -267,7 +267,7 @@ body {
 }
 
 .filter-btn {
-    background-color: var(--sage);
+    background-color: var(--forest);
     color: white;
     border: none;
     padding: 0.7rem 1.2rem;
@@ -277,7 +277,7 @@ body {
 }
 
 .filter-btn:hover {
-    background-color: var(--forest);
+    background-color: var(--sage);
 }
 
 .products {
